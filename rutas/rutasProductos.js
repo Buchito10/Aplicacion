@@ -1,13 +1,13 @@
 var ruta = require("express").Router();
-var { mostrarProductos, nuevoProducto, borrarProducto, buscarPorId } = require("../bd/productosBD");
+var { mostrarProductos, nuevoProducto, borrarProducto, buscarPorIdProductos } = require("../bd/productosBD");
 
-ruta.get("/", async (req, res) => {
+ruta.get("/mostarProductos", async (req, res) => {
     const productos = await mostrarProductos();
     res.json(productos);
 });
 
-ruta.get("/buscarporId/:id", async (req, res) => {
-    var productoValido = await buscarPorId(req.params.id);
+ruta.get("/buscarporIdProductos/:id", async (req, res) => {
+    var productoValido = await buscarPorIdProductos(req.params.id);
     res.json(productoValido);
 });
 

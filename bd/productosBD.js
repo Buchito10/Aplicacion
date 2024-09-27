@@ -26,7 +26,7 @@ async function mostrarProductos(){
     return productosValidos;
 }
 
-async function buscarPorId(id){
+async function buscarPorIdProductos(id){
     const producto = await productosBD.doc(id).get();
     const producto1 = new Producto({descripcion: producto.descripcion,...producto.data()});
     var productoValido = {error:true};
@@ -47,7 +47,7 @@ async function nuevoProducto(data){
 }
 
 async function borrarProducto(id){
-    const producto = await buscarPorId(id);
+    const producto = await buscarPorIdProductos(id);
     var borrado=false;
     if(producto.error!=true){
         await productosBD.doc(id).delete();
@@ -59,7 +59,7 @@ async function borrarProducto(id){
 
 module.exports={
     mostrarProductos,
-    buscarPorId,
+    buscarPorIdProductos,
     nuevoProducto,
     borrarProducto
 }
