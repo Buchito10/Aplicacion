@@ -1,9 +1,9 @@
-class Ventas {
+class Venta {
     constructor(data) {
         this.id=data.id;
         this.idUsuario=data.idUsuario;
         this.idProducto=data.idProducto;
-        this.cantidad=data.cantidad;
+        this.hora=data.hora;
         this.fecha=data.fecha;
         this.status=data.status;
     }
@@ -16,8 +16,8 @@ class Ventas {
     set idProducto(idProducto){
         this._idProducto=idProducto;
     }
-    set cantidad(cantidad){
-        this._cantidad=cantidad;
+    set hora(hora){
+        this._hora=hora;
     }
     set fecha(fecha){
         this._fecha=fecha;
@@ -34,8 +34,8 @@ class Ventas {
     get idProducto(){
         return this._idProducto;
     }
-    get cantidad(){
-        return this._cantidad;
+    get hora(){
+        return this._hora;
     }
     get fecha(){
         return this._fecha;
@@ -43,29 +43,28 @@ class Ventas {
     get status(){
         return this._status;
     }
-    get getVentas(){
+    get getVenta() { 
         const conid = {
-            id:this._id,
-            idUsuario:this._idUsuario,
-            idProducto:this._idProducto,
-            cantidad:this._cantidad,
-            fecha:this._fecha,
-            status:this._status
+            id: this._id,
+            idUsuario: this._idUsuario,
+            idProducto: this._idProducto,
+            hora: this._hora,
+            fecha: this._fecha,
+            status: this._status
         }
         const sinid = {
-            idUsuario:this._idUsuario,
-            idProducto:this._idProducto,
-            cantidad:this._cantidad,
-            fecha:this._fecha,
-            status:this._status
+            idUsuario: this._idUsuario,
+            idProducto: this._idProducto,
+            hora: this._hora,
+            fecha: this._fecha,
+            status: this._status
         }
-        if (this.id!=undefined){
+        if (this.id !== undefined) {
             return conid;
-        }
-        else {
+        } else {
             return sinid;
         }
     }
 }
 
-module.exports(Ventas);
+module.exports = Venta;
