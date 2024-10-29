@@ -61,9 +61,31 @@ async function cancelarVenta(id) {
     return cancelada;
 }
 
+async function editarVenta(id, data) {
+    const venta = await buscarPorIdVenta(id);
+    let editada = false;
+
+    if (!venta.error) {
+        delete data.id;
+
+        const ventaActualizada = {
+            ...venta,
+            ...data
+        };
+
+        if (validarVentas(ventaActualizada)) {
+            await ventasBD.doc(id).update(ventaActualizada);
+            editada = true;
+        }
+    }
+    
+    return editada;
+}
+
 module.exports = {
     mostrarVentas,
     buscarPorIdVenta,
     nuevaVenta,
-    cancelarVenta
+    cancelarVenta,
+    editarVenta
 };

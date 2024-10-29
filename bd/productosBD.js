@@ -57,11 +57,33 @@ async function borrarProducto(id){
     return borrado;
 }
 
+async function editarProducto(id, data) {
+    const producto = await buscarPorIdProductos(id);
+    let editado = false;
+
+    if (!producto.error) {
+        delete data.id;
+
+        const productoActualizado = {
+            ...producto,
+            ...data
+        };
+
+        if (validarProductos(productoActualizado)) {
+            await productosBD.doc(id).update(productoActualizado);
+            editado = true;
+        }
+    }
+    
+    return editado;
+}
+
 module.exports={
     mostrarProductos,
     buscarPorIdProductos,
     nuevoProducto,
-    borrarProducto
+    borrarProducto,
+    editarProducto
 }
 
 //borrarProducto("1");

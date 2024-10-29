@@ -62,11 +62,37 @@ async function borrarUsuario(id){
     return borrado;
 }
 
+async function editarUsuario(id, data) {
+    const usuario = await buscarPorId(id);
+    let editado = false;
+
+    if (!usuario.error) {
+        delete data.id;
+
+        if (data.password) {
+            const { hash, salt } = encriptarPassword(data.password);
+            data.password = hash;
+            data.salt = salt;
+        }
+        const usuarioActualizado = {
+            ...usuario,
+            ...data
+        };
+        if (validarDatos(usuarioActualizado)) {
+            await usuariosBD.doc(id).update(usuarioActualizado);
+            editado = true;
+        }
+    }
+    
+    return editado;
+}
+
 module.exports={
     mostrarUsuarios,
     nuevoUsuario,
     borrarUsuario,
-    buscarPorId
+    buscarPorId,
+    editarUsuario
 }
 
 //borrarUsuario("rlCKQ8oyrNzyDCJqJMSn"); //Credenciales Correctas

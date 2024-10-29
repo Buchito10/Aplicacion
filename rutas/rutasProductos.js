@@ -1,7 +1,7 @@
 var ruta = require("express").Router();
-var { mostrarProductos, nuevoProducto, borrarProducto, buscarPorIdProductos } = require("../bd/productosBD");
+var { mostrarProductos, nuevoProducto, borrarProducto, buscarPorIdProductos, editarProducto } = require("../bd/productosBD");
 
-ruta.get("/mostarProductos", async (req, res) => {
+ruta.get("/mostrarProductos", async (req, res) => {
     const productos = await mostrarProductos();
     res.json(productos);
 });
@@ -19,6 +19,11 @@ ruta.delete("/borrarProducto/:id", async (req, res) => {
 ruta.post("/nuevoProducto", async (req, res) => {
     var productoValido = await nuevoProducto(req.body);
     res.json(productoValido);
+});
+
+ruta.put("/editarProducto/:id", async (req, res) => {
+    const editado = await editarProducto(req.params.id, req.body);
+    res.json(editado);
 });
 
 module.exports = ruta;
